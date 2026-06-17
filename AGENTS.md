@@ -1,6 +1,7 @@
 # AGENTS.md
 
 ## Project Overview
+
 A TypeScript study guide demonstrating logger implementation with dual backends (Winston and OpenTelemetry). Single-package project targeting Node.js with ES modules.
 
 ## Commands
@@ -34,6 +35,7 @@ Logger provider is selected via `LOG_PROVIDER` env var (`"winston"` default, `"o
 ## ESLint Configuration
 
 Dual config system:
+
 - `.eslintrc.json`: Legacy config (may be superseded; avoid editing)
 - `eslint.config.js`: Flat config (new standard) – primary source of truth
 - Rules: TypeScript recommended + custom warnings on `no-unused-vars` and `no-explicit-any`
