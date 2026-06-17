@@ -27,5 +27,17 @@ export default [
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn'
     }
+  },
+  {
+    files: ['src/**/*.{js,ts}'],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'ExportDefaultDeclaration',
+          message: 'Prefer named exports over default exports.'
+        }
+      ]
+    }
   }
 ];

@@ -1,12 +1,12 @@
 // ─── Test Data Generator Utility ──────────────────────────────────────────────
 
-import User from "../eo/user.js";
+import { User } from "../eo/user.js";
 
 /**
  * Utility class for generating random test data
  * Provides methods to generate sample data for testing and demonstrations
  */
-class Test_util {
+class TestUtil {
     /**
      * Sample first names for random user generation
      */
@@ -101,4 +101,4 @@ class Test_util {
     }
 }
 
-export default Test_util;
+export { TestUtil };

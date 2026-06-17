@@ -99,7 +99,7 @@ class OTelLoggerInstance implements LoggerInstance {
  * Unified Logger_util factory class
  * Supports both Winston and OpenTelemetry backends
  */
-class Logger_util {
+class LoggerUtil {
     private static readonly loggers: Map<string, LoggerInstance> = new Map();
     private static readonly provider: string = process.env.LOG_PROVIDER || "winston";
     private static readonly winstonLoggers: Map<string, winston.Logger> = new Map();
@@ -180,4 +180,4 @@ class Logger_util {
     }
 }
 
-export default Logger_util;
+export { LoggerUtil };

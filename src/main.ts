@@ -1,9 +1,9 @@
 // ─── Imports ──────────────────────────────────────────────────────────────────
 
-import LoggerUtil from "./utils/logger_util.js";
-import TestUtil from "./utils/test_util.js";
+import { LoggerUtil } from "./utils/logger_util.js";
+import { TestUtil } from "./utils/test_util.js";
 
-import User from "./eo/user.js";
+import { User } from "./eo/user.js";
 
 // ─── Logger_util Instance in Main Scope ────────────────────────────────────────────
 
