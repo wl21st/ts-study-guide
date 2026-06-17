@@ -1,27 +1,21 @@
-// ─── User Class ──────────────────────────────────────────────────────────────
+// ─── Imports ──────────────────────────────────────────────────────────────────
 
-import Logger from "./logger.js";
-import User from "./eo/user.js"
+import LoggerUtil from "./utils/logger_util.js";
+import TestUtil from "./utils/test_util.js";
 
-// ─── Generate Sample Users ────────────────────────────────────────────────────
+import User from "./eo/user.js";
 
-function generateSampleUsers(): User[] {
-    return [
-        new User(1, "Alice Johnson",  32, "alice@example.com",  true),
-        new User(2, "Bob Smith",      24, "bob@example.com",    false),
-        new User(3, "Carol White",    45, "carol@example.com",  true),
-        new User(4, "David Brown",    19, "david@example.com",  false),
-        new User(5, "Eve Martinez",   38, "eve@example.com",    true),
-    ];
-}
+// ─── Logger_util Instance in Main Scope ────────────────────────────────────────────
 
-// ─── Main Logic with Winston Logger ─────────────────────────────────────────
+const _logger = LoggerUtil.getLogger("main");
+
+// ─── Main Logic with Winston Logger_util ─────────────────────────────────────────
 
 function mainWithWinstonLogger(): void {
-    const logger = Logger.getLogger("main-winston");
-    logger.info("========== Starting with Winston Logger ==========");
+    const logger = LoggerUtil.getLogger("main-winston");
+    logger.info("========== Starting with Winston Logger_util ==========");
 
-    const users: User[] = generateSampleUsers();
+    const users: User[] = TestUtil.generateSampleUsers();
     logger.info(`Generated ${users.length} users`);
 
     logger.info(`\n--- All Users (${users.length}) ---`);
@@ -39,14 +33,14 @@ function mainWithWinstonLogger(): void {
     logger.info("User generation completed with Winston");
 }
 
-// ─── Main Logic with OpenTelemetry Logger ───────────────────────────────────
+// ─── Main Logic with OpenTelemetry Logger_util ───────────────────────────────────
 
 function mainWithOTelLogger(): void {
-    const logger = Logger.getLogger("main-otel");
-    logger.info("========== Starting with OpenTelemetry Logger ==========");
+    const logger = LoggerUtil.getLogger("main-otel");
+    logger.info("========== Starting with OpenTelemetry Logger_util ==========");
 
-    const users: User[] = generateSampleUsers();
-    logger.info(`Generated ${users.length} users`, { userCount: users.length });
+    const users: User[] = TestUtil.generateSampleUsers();
+    logger.info(`Generated ${users.length} users`, {userCount: users.length});
 
     logger.info(`\n--- All Users (${users.length}) ---`);
     users.forEach((user) => {
@@ -59,7 +53,7 @@ function mainWithOTelLogger(): void {
 
     const seniors = users.filter((u) => u.isSenior);
     logger.info(`\n--- Seniors only (${seniors.length}) ---`);
-    logger.info(`Filtered ${seniors.length} senior users`, { seniorCount: seniors.length });
+    logger.info(`Filtered ${seniors.length} senior users`, {seniorCount: seniors.length});
     seniors.forEach((user) => {
         logger.info(user.toString(), {
             userId: user.id,
@@ -71,27 +65,42 @@ function mainWithOTelLogger(): void {
     logger.info("User generation completed with OpenTelemetry");
 }
 
+function any_demo() {
+    let data: any = "Hello"; // eslint-disable-line @typescript-eslint/no-explicit-any
+    _logger.info(`Any data length: ${data.length}`); // OK (Dangerous! No compiler check)
+
+    let safeData: unknown = "Hello";
+    // safeData.length; // Error: Object is of type 'unknown'
+
+    if (typeof safeData === "string") {
+        _logger.info(`SafeData length is ${safeData.length}!`);
+    }
+}
+
 // ─── Run Both Demonstrations ──────────────────────────────────────────────────
 
 async function main(): Promise<void> {
     console.log("\n");
     console.log("╔════════════════════════════════════════════════════════════╗");
-    console.log("║         Logger Comparison: Winston vs OpenTelemetry        ║");
+    console.log("║         Logger_util Comparison: Winston vs OpenTelemetry        ║");
     console.log("╚════════════════════════════════════════════════════════════╝");
     console.log("\n");
 
-    // Run Winston Logger demonstration
+    // Run Winston Logger_util demonstration
     mainWithWinstonLogger();
 
     console.log("\n");
     console.log("─".repeat(60));
     console.log("\n");
 
-    // Run OpenTelemetry Logger demonstration
+    // Run OpenTelemetry Logger_util demonstration
     mainWithOTelLogger();
 
+    // Language feature demo
+    any_demo();
+
     // Cleanup
-    await Logger.shutdown();
+    await LoggerUtil.shutdown();
 
     console.log("\n");
     console.log("╔════════════════════════════════════════════════════════════╗");
@@ -99,5 +108,6 @@ async function main(): Promise<void> {
     console.log("╚════════════════════════════════════════════════════════════╝");
     console.log("\n");
 }
+
 
 main();

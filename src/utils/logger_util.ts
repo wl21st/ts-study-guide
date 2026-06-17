@@ -1,9 +1,9 @@
-// ─── Logger Utility (Unified - Supports Winston or OpenTelemetry) ───────────
+// ─── Logger_util Utility (Unified - Supports Winston or OpenTelemetry) ───────────
 
 import winston from "winston";
 
 /**
- * Unified Logger interface that supports both Winston and OpenTelemetry backends
+ * Unified Logger_util interface that supports both Winston and OpenTelemetry backends
  * Use LOG_PROVIDER environment variable to switch: "winston" (default) or "otel"
  */
 
@@ -15,7 +15,7 @@ interface LoggerInstance {
 }
 
 /**
- * Winston Logger Implementation
+ * Winston Logger_util Implementation
  */
 class WinstonLoggerInstance implements LoggerInstance {
     constructor(private winstonLogger: winston.Logger) {}
@@ -38,7 +38,7 @@ class WinstonLoggerInstance implements LoggerInstance {
 }
 
 /**
- * OpenTelemetry Logger Implementation
+ * OpenTelemetry Logger_util Implementation
  */
 class OTelLoggerInstance implements LoggerInstance {
     private readonly context: Map<string, string | number | boolean> = new Map();
@@ -96,10 +96,10 @@ class OTelLoggerInstance implements LoggerInstance {
 }
 
 /**
- * Unified Logger factory class
+ * Unified Logger_util factory class
  * Supports both Winston and OpenTelemetry backends
  */
-class Logger {
+class Logger_util {
     private static readonly loggers: Map<string, LoggerInstance> = new Map();
     private static readonly provider: string = process.env.LOG_PROVIDER || "winston";
     private static readonly winstonLoggers: Map<string, winston.Logger> = new Map();
@@ -180,4 +180,4 @@ class Logger {
     }
 }
 
-export default Logger;
+export default Logger_util;
