@@ -10,7 +10,12 @@
     "lint": "eslint . --ext .ts,.js",
     "lint:fix": "eslint . --ext .ts,.js --fix",
     "security": "npm audit",
-    "security:fix": "npm audit fix"
+    "security:fix": "npm audit fix",
+    "security:deps": "npm audit",
+    "security:secrets": "secretlint \"src/**\"",
+    "security:source": "secretlint \"src/**\" && eslint src/ --ext .ts,.js",
+    "security:all": "npm run security:source && npm run security:deps",
+    "security:tools-install": "npm install -D eslint-plugin-security secretlint @secretlint/secretlint-rule-preset-recommend"
   },
   "keywords": [],
   "author": "",
@@ -21,10 +26,13 @@
     "@opentelemetry/api": "^1.9.1",
     "@opentelemetry/resources": "^2.8.0",
     "@opentelemetry/sdk-logs": "^0.219.0",
+    "@secretlint/secretlint-rule-preset-recommend": "^13.0.4",
     "@types/node": "^25.9.3",
     "@typescript-eslint/eslint-plugin": "^8.61.1",
     "@typescript-eslint/parser": "^8.61.1",
     "eslint": "^10.5.0",
+    "eslint-plugin-security": "^4.0.1",
+    "secretlint": "^13.0.4",
     "tsx": "^4.22.4",
     "typescript": "^6.0.3",
     "winston": "^3.19.0"
